@@ -99,28 +99,8 @@ sudo yum install podman
 ```bash
 mkdir k8s-backup-scripts
 cd k8s-backup-scripts
+git clone https://github.com/nix1am/k8s-io.git
 ```
-
-Создайте файл `export-k8s-config.sh`:
-
-```bash
-#!/bin/bash
-
-set -e
-
-# ... [вставьте полный код скрипта экспорта отсюда] ...
-```
-
-Создайте файл `import-k8s-config.sh`:
-
-```bash
-#!/bin/bash
-
-set -e
-
-# ... [вставьте полный код скрипта импорта отсюда] ...
-```
-
 Сделайте скрипты исполняемыми:
 
 ```bash
