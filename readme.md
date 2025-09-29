@@ -23,6 +23,13 @@ kubectl get namespaces
 
 # Проверьте список подов во всех namespace'ах
 kubectl get pods --all-namespaces
+
+# Скачать kubectl
+wget https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
+
+# Скачать kubeadm
+wget https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubeadm
+
 ```
 
 ### 2. Проверка доступного места на диске
