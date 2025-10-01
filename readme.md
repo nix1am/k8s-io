@@ -1,6 +1,7 @@
 # Подробная инструкция по использованию скрипта экспорта/импорта конфигурации Kubernetes
 
 ## Оглавление
+
 1. [Предварительные требования](#предварительные-требования)
 2. [Установка зависимостей](#установка-зависимостей)
 3. [Настройка скриптов](#настройка-скриптов)
@@ -33,6 +34,7 @@ wget https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt
 ```
 
 ### 2. Проверка доступного места на диске
+
 Убедитесь, что есть достаточно места для хранения образов (обычно требуется 1-10 ГБ в зависимости от размера кластера).
 
 ```bash
@@ -47,6 +49,7 @@ df -h
 ### 1. Установка yq (YAML processor)
 
 **Для Linux:**
+
 ```bash
 # Скачайте последнюю версию yq
 wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
@@ -57,6 +60,7 @@ yq --version
 ```
 
 **Для macOS:**
+
 ```bash
 # Установка через Homebrew
 brew install yq
@@ -66,6 +70,7 @@ yq --version
 ```
 
 **Для Windows:**
+
 ```bash
 # Установка через Chocolatey
 choco install yq
@@ -77,6 +82,7 @@ scoop install yq
 ### 2. Установка Docker или Podman (для работы с образами)
 
 **Docker:**
+
 ```bash
 # Ubuntu/Debian
 sudo apt update
@@ -90,6 +96,7 @@ newgrp docker
 ```
 
 **Podman:**
+
 ```bash
 # Ubuntu/Debian
 sudo apt update
@@ -108,6 +115,7 @@ mkdir k8s-backup-scripts
 cd k8s-backup-scripts
 git clone https://github.com/nix1am/k8s-io.git
 ```
+
 Сделайте скрипты исполняемыми:
 
 ```bash
@@ -187,7 +195,7 @@ watch -n 5 'du -sh k8s-backup-* && find k8s-backup-* -name "*.tar" | wc -l'
 ls -la k8s-backup-20231201-143022/
 ```
 
-### Что происходит во время экспорта:
+### Что происходит во время экспорта
 
 1. **Проверка зависимостей** - kubectl, yq, docker/podman
 2. **Создание структуры директорий**
@@ -340,6 +348,7 @@ kubectl get ns my-app || ./export-k8s-config.sh --namespace my-app
 ### Частые проблемы и решения
 
 **Проблема**: `Error: unable to retrieve cluster-info`
+
 ```bash
 # Решение: Проверьте конфигурацию kubectl
 kubectl config current-context
@@ -348,6 +357,7 @@ kubectl config use-context правильный-контекст
 ```
 
 **Проблема**: `yq: command not found`
+
 ```bash
 # Решение: Установите yq
 wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/local/bin/yq
@@ -355,6 +365,7 @@ chmod +x /usr/local/bin/yq
 ```
 
 **Проблема**: `Permission denied` при скачивании образов
+
 ```bash
 # Решение: Добавьте пользователя в группу docker
 sudo usermod -aG docker $USER
@@ -362,6 +373,7 @@ newgrp docker
 ```
 
 **Проблема**: Не хватает места на диске
+
 ```bash
 # Решение: Экспорт без образов или очистка места
 ./export-k8s-config.sh --skip-images
@@ -370,6 +382,7 @@ docker system prune -a
 ```
 
 **Проблема**: Ошибки при применении манифестов
+
 ```bash
 # Решение: Применяйте ресурсы в правильном порядке
 kubectl apply -f manifests/namespaces/
